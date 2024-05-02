@@ -24,7 +24,7 @@
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('user')) ? 'active' : ''}}" href="{{ route('user.index') }}">
             <i class="fas fa-user-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data User</span></a>
+            <span>Data Pegawai</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('pasien')) ? 'active' : ''}}" href="{{ route('pasien.index') }}">
@@ -32,7 +32,7 @@
             <span>Data Pasien</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
+        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="{{ route('kunjungan.index') }}">
             <i class="fas fa-users" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Kunjungan Pasien</span></a>
     </li>
@@ -42,7 +42,7 @@
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
             <i class="fas fa-fw fa-cog" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Laporan</span></a>
+            <span>Data Pembayaran</span></a>
         </a>
 
         <hr class="sidebar-divider my-0">
@@ -50,13 +50,8 @@
          <li class="nav-item">
         <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
             <i class="far fa-file-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Riwayat Kunjungan</span></a>
+            <span>Cetak Laporan</span></a>
     </li>
-     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
-            <i class="far fa-file-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Laporan Pembayaran</span></a>
-
      <hr class="sidebar-divider my-0">
 
     @elseif(Auth::user()->role == 'dokter')
@@ -67,12 +62,12 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('user')) ? 'active' : ''}}" href="{{ route('user.index') }}">
+        <a class="nav-link {{ (request()->is('pemeriksaandokter')) ? 'active' : ''}}" href="{{ route('pemeriksaandokter.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Pemeriksaan</span></a>
     </li>
      <li class="nav-item">
-        <a class="nav-link {{ (request()->is('user')) ? 'active' : ''}}" href="{{ route('user.index') }}">
+        <a class="nav-link {{ (request()->is('resepobat')) ? 'active' : ''}}" href="{{ route('resepobat.index') }}">
             <i class="fas fa-user-edit" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Resep Obat</span></a>
     </li>
@@ -82,7 +77,7 @@
             <span>Tindakan</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
+        <a class="nav-link {{ (request()->is('rekammedis')) ? 'active' : ''}}" href="{{ route('rekammedis.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Rekam Medis</span></a>
     </li>
@@ -122,7 +117,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('user')) ? 'active' : ''}}" href="{{ route('user.index') }}">
+        <a class="nav-link {{ (request()->is('pemeriksaan')) ? 'active' : ''}}" href="{{ route('pemeriksaan.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Pemeriksaan</span></a>
     </li>

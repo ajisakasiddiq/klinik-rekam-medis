@@ -12,6 +12,17 @@
     {{-- <div class="row"> --}}
     <div class="dashboard-content mb-3">
         <div class="row">
+            @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @else
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('error') }}
+                            </div>
+                        @endif
+                    @endif
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">

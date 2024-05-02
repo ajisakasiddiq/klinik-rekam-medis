@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pasien', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('no_rmd')->unique();
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->string('nama_pasien');
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('tempat_lahir');

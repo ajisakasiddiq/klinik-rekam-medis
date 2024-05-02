@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('obat', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->string('kode_obat');
             $table->string('nama_obat');
             $table->string('stok');
-            $table->string('harga_beli');
-            $table->string('harga_jual');
-            $table->string('satuan');
+            $table->string('harga');
+            $table->enum('status',['in stock', 'out stock']);
+            $table->enum('satuan',['tablet', 'kapsul', 'kaplet', 'pil', 'puyer']);
             $table->timestamps();
         });
     }
