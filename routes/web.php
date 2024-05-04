@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware();
 Route::get('/create', 'PasienController@create')->name('pasien.create');
+Route::get('/obat', 'ObatController@index');
+
 
 
 

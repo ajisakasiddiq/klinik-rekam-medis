@@ -15,10 +15,11 @@ class ObatController extends Controller
     {
         $no = 1;
         $obat = Obat::get();
-
+        $jumlah_obat = Obat::count();
         return view('pages.obat', compact(
             'no',
-            'obat'
+            'obat',
+            'jumlah_obat'
             
         ));
     }
@@ -33,15 +34,15 @@ class ObatController extends Controller
      */
     public function store(Request $request)
     {
-    try {
-        // Simpan data ke database
-        $obat = Obat::create($request->all());
-        return redirect()->route('obat.index')->with('success', 'Obat "' . $obat->nama_obat . '" berhasil ditambahkan.');
-    } catch (\Exception $e) {
-        // Tangkap pengecualian dan tampilkan pesan kesalahan
-        return redirect()->route('obat.index')->with('error', 'Gagal menambahkan obat: ' . $e->getMessage());
+        try {
+            // Simpan data ke database
+            $obat = Obat::create($request->all());
+            return redirect()->route('obat.index')->with('success', 'Obat "' . $obat->nama_obat . '" berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            // Tangkap pengecualian dan tampilkan pesan kesalahan
+            return redirect()->route('obat.index')->with('error', 'Gagal menambahkan obat: ' . $e->getMessage());
+        }
     }
-}
     /**
      * Display the specified resource.
      */
@@ -64,23 +65,27 @@ class ObatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-    try {
-        $obat = Obat::findOrFail($id);
-        $obat->update($request->all());
-        return redirect()->route('obat.index')->with('success', 'Data obat "' . $obat->nama_obat . '" berhasil diperbarui.');
-    } catch (\Exception $e) {
-        return redirect()->route('obat.index')->with('error', 'Gagal memperbarui data obat: ' . $e->getMessage());
+        try {
+            $obat = Obat::findOrFail($id);
+            $obat->update($request->all());
+            return redirect()->route('obat.index')->with('success', 'Data obat "' . $obat->nama_obat . '" berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->route('obat.index')->with('error', 'Gagal memperbarui data obat: ' . $e->getMessage());
+        }
     }
-}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        $data = Obat::findOrFail($id);
-        $data->delete();
-
-        return redirect()->route('obat.index')->with('success', 'Data obat berhasil dihapus.');;
+     {
+        try {
+            $data = Obat::findOrFail($id);
+            $data->delete();
+            return redirect()->route('obat.index')->with('success', 'Data obat berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('obat.index')->with('error', 'Gagal menghapus data obat: ' . $e->getMessage());
+        }
     }
+
 }
