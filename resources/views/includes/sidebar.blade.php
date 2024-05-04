@@ -104,9 +104,9 @@
             <span>Data Obat Pasien</span></a>
     </li> -->
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('supplier')) ? 'active' : ''}}" href="{{ route('supplier.index') }}">
+        <a class="nav-link {{ (request()->is('obatpasien')) ? 'active' : ''}}" href="{{ route('obatpasien.index') }}">
             <i class="fas fa-user-edit" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Supplier</span></a>
+            <span>Obat Pasien</span></a>
     </li>
 
     @elseif(Auth::user()->role == 'perawat')

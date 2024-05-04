@@ -37,12 +37,15 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+    try {
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
         User::create($data);
-
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'Pengguna "' . $request->name . '" berhasil ditambahkan.');
+    } catch (\Exception $e) {
+        return redirect()->route('user.index')->with('error', 'Gagal menambahkan pengguna: ' . $e->getMessage());
     }
+}
 
     /**
      * Display the specified resource.
@@ -65,29 +68,36 @@ class UserController extends Controller
      */
         public function update(Request $request, $id)
         {
-            $user = User::findOrFail($id);
+    try {
+        $user = User::findOrFail($id);
 
-            $request->validate([
-                'email' => 'required|email',
-                'name' => 'required',
-                'password' => 'required',
-                'role' => 'required',
-            ]);
+        $request->validate([
+            'email' => 'required|email',
+            'name' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
 
-            $user->update($request->all());
+        $user->update($request->all());
 
-            return redirect()->route('user.index')->with('success', 'User updated successfully');
-        }
+        return redirect()->route('user.index')->with('success', 'Pengguna "' . $user->name . '" berhasil diperbarui.');
+    } catch (\Exception $e) {
+        return redirect()->route('user.index')->with('error', 'Gagal memperbarui pengguna: ' . $e->getMessage());
+    }
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $data = User::findOrFail($id);
-        $data->delete();
-
-        return redirect()->route('user.index');
+    try {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index')->with('success', 'Pengguna "' . $user->name . '" berhasil dihapus.');
+    } catch (\Exception $e) {
+        return redirect()->route('user.index')->with('error', 'Gagal menghapus pengguna: ' . $e->getMessage());
     }
+}
 }
 

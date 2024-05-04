@@ -20,6 +20,8 @@ use App\Http\Controllers\UserController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware();
+Route::get('/create', 'PasienController@create')->name('pasien.create');
+
 
 
 Route::resource('user', 'App\Http\Controllers\UserController')->middleware('auth');
@@ -31,4 +33,5 @@ Route::resource('obat', 'App\Http\Controllers\ObatController')->middleware('auth
 Route::resource('pemeriksaandokter', 'App\Http\Controllers\PemeriksaandokterController')->middleware('auth');
 Route::resource('rekammedis', 'App\Http\Controllers\RekammedisController')->middleware('auth');
 Route::resource('resepobat', 'App\Http\Controllers\ResepobatController')->middleware('auth');
+Route::resource('obatpasien', 'App\Http\Controllers\ObatpasienController')->middleware('auth');
 Route::resource('supplier', 'App\Http\Controllers\SupplierController')->middleware('auth');

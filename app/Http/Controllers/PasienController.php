@@ -13,15 +13,14 @@ class PasienController extends Controller
      */
     public function index()
     {
-        $no = 1;
-        $pasien = Pasien::get();
+    $no = 1;
+    $pasien = Pasien::orderBy('created_at', 'desc')->get(); // Mengambil data pasien dengan urutan berdasarkan waktu pembuatan, dengan yang terbaru di atas
 
-        return view('pages.pasien', compact(
-            'no',
-            'pasien'
-            
-        ));
-    }
+    return view('pages.pasien', compact(
+        'no',
+        'pasien'
+    ));
+}
 
     public function create()
     {
@@ -31,16 +30,16 @@ class PasienController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PasienRequest $request)
+    public function store(Request $request)
     {
-        try {
-            // Simpan data ke database
-            Pasien::create($request->all());
-            return redirect()->route('pasien.index')->with('success', 'Data berhasil disimpan.');
-        } catch (\Exception $e) {
-            // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('pasien.index')->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
-        }
+    try {
+        // Simpan data ke database
+        Pasien::create($request->all());
+        return redirect()->route('pasien.index')->with('success', 'Data pasien ' . $request->nama_pasien . ' berhasil ditambahkan.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('pasien.index')->with('error', 'Gagal menambahkan data pasien: ' . $e->getMessage());
+    }
     }
 
     /**
@@ -65,8 +64,9 @@ class PasienController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = Pasien::find($id); // Mencari data berdasarkan ID
-
+    try {
+        $pasien = Pasien::findOrFail($id); // Mencari data berdasarkan ID
+        
         // Validasi input data jika diperlukan
         $request->validate([
             'no_rmd' => 'required',
@@ -80,36 +80,34 @@ class PasienController extends Controller
             'alamat' => 'required',
             'no_telp' => 'required',
             'biaya' => 'required',
-            'no_dana_sehat' => 'required',
+            'no_dana_sehat' => 'nullable',
             // Tambahkan validasi untuk kolom lain sesuai kebutuhan
         ]);
 
         // Simpan perubahan data
-        $data->no_rmd = $request->input('no_rmd');
-        $data->nik = $request->input('nik');
-        $data->nama_pasien = $request->input('nama_pasien');
-        $data->tempat_lahir = $request->input('tempat_lahir');
-        $data->jenis_kelamin = $request->input('jenis_kelamin');
-        $data->usia = $request->input('usia');
-        $data->agama = $request->input('agama');
-        $data->pekerjaan = $request->input('pekerjaan');
-        $data->alamat = $request->input('alamat');
-        $data->no_telp = $request->input('no_telp');
-        $data->biaya = $request->input('biaya');
-        $data->no_dana_sehat = $request->input('no_dana_sehat');
-        // Setel nilai kolom lain sesuai kebutuhan
-        $data->save();
-        return redirect()->route('pasien.index')->with('success', 'Data berhasil diperbarui.');
+        $pasien->update($request->all());
+
+        return redirect()->route('pasien.index')->with('success', 'Data pasien ' . $pasien->nama_pasien . ' berhasil diperbarui.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('pasien.index')->with('error', 'Gagal memperbarui data pasien: ' . $e->getMessage());
     }
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $data = Pasien::findOrFail($id);
-        $data->delete();
+    try {
+        $pasien = Pasien::findOrFail($id);
+        $nama_pasien = $pasien->nama_pasien; // Simpan nama pasien sebelum dihapus
+        $pasien->delete();
 
-        return redirect()->route('pasien.index');
+        return redirect()->route('pasien.index')->with('success', 'Data pasien ' . $nama_pasien . ' berhasil dihapus.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('pasien.index')->with('error', 'Gagal menghapus data pasien: ' . $e->getMessage());
     }
+}
 }

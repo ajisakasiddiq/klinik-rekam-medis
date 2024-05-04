@@ -13,13 +13,13 @@ class PemeriksaandokterController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+     {
         $no = 1;
-        $dokter = User::where('role','dokter')
-        ->where('status','aktif')->get();
+        $dokter = User::where('role', 'dokter')
+            ->where('status', 'aktif')->get();
         $pasien = Pasien::get();
-        $kunjungan = Pemeriksaan::with('pasien')->get();
-        return view('pages.pemeriksaandokter',compact('kunjungan','no','dokter','pasien'));
+        $kunjungan = Pemeriksaan::with('pasien')->orderBy('created_at', 'desc')->get();
+        return view('pages.pemeriksaandokter', compact('kunjungan', 'no', 'dokter', 'pasien'));
     }
 
     /**

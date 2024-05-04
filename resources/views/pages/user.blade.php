@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data User</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Pegawai</h1>
     </div>
 
     <!-- Content Row -->
@@ -16,8 +16,21 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
-                                + Tambah User Baru
+                                + Tambah Pegawai Baru
                             </a>
+                             {{-- Pesan Sukses --}}
+                        @if(session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        {{-- Pesan Error --}}
+                        @if(session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                             <div class="table-responsive">
                                 <table id="UserData" class="display" style="width:100%">
                                     <thead>
@@ -58,7 +71,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-3" id="exampleModalLabel">{{ __('Edit User') }}</h1>
+              <h1 class="modal-title fs-3" id="exampleModalLabel">{{ __('Edit Data Pegawai') }}</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

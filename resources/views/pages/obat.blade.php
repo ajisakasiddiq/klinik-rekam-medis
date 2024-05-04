@@ -2,7 +2,6 @@
 @section('title','Data Obat | Apoteker' )
 @section('content')
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Data Obat</h1>
@@ -19,6 +18,19 @@
                             data-bs-toggle="modal" data-bs-target="#adduser">
                             + Tambah Data Obat
                         </a>
+                         {{-- Pesan Sukses --}}
+                        @if(session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        {{-- Pesan Error --}}
+                        @if(session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <div class="table-responsive">
                             <table id="UserData" class="display" style="width:100%">
                                 <thead>
@@ -117,26 +129,76 @@
                                                                 name="stok" class="form-control"
                                                                 id="exampleInputEmail1" aria-describedby="emailHelp">
                                                         </div>
+                                                         <div class="mb-3">
+                                                            <label for="status" class="form-label">Status</label>
+                                                            <select id="status" class="form-control" name="status" required>
+                                                                <option value="in stock">In Stock</option>
+                                                                <option value="out stock">Out Stock</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="status" class="form-label">Status</label>
+                                                            <select id="status" class="form-control" name="status" required>
+                                                                @if($data->status == 'in stock')
+                                                                <option value="in stock" selected>In Stock</option>
+                                                                <option value="out stock">Out Stock</option>
+                                                            @elseif($data->status == 'out stock')
+                                                                <option value="in stock">In Stock</option>
+                                                                <option value="out stock" selected>Out Stock</option>
+                                                            @else 
+                                                                <option value="in stock">In Stock</option>
+                                                                <option value="out stock">Out Stock</option>
+                                                            @endif
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="satuan" class="form-label">Satuan</label>
+                                                            <select id="satuan" class="form-control" name="satuan" required>
+                                                               @if($data->satuan == 'tablet')
+                                                                    <option value="tablet" selected>Tablet</option>
+                                                                    <option value="kapsul">Kapsul</option>
+                                                                    <option value="kaplet">Kaplet</option>
+                                                                    <option value="pil">Pil</option>
+                                                                    <option value="puyer">Puyer</option>
+                                                                @elseif($data->satuan == 'kapsul')
+                                                                    <option value="tablet">Tablet</option>
+                                                                    <option value="kapsul" selected>Kapsul</option>
+                                                                    <option value="kaplet">Kaplet</option>
+                                                                    <option value="pil">Pil</option>
+                                                                    <option value="puyer">Puyer</option>
+                                                                @elseif($data->satuan == 'kaplet')
+                                                                    <option value="tablet">Tablet</option>
+                                                                    <option value="kapsul">Kapsul</option>
+                                                                    <option value="kaplet" selected>Kaplet</option>
+                                                                    <option value="pil">Pil</option>
+                                                                    <option value="puyer">Puyer</option>
+                                                                @elseif($data->satuan == 'pil')
+                                                                    <option value="tablet">Tablet</option>
+                                                                    <option value="kapsul">Kapsul</option>
+                                                                    <option value="kaplet">Kaplet</option>
+                                                                    <option value="pil" selected>Pil</option>
+                                                                    <option value="puyer">Puyer</option>
+                                                                @elseif($data->satuan == 'puyer')
+                                                                    <option value="tablet">Tablet</option>
+                                                                    <option value="kapsul">Kapsul</option>
+                                                                    <option value="kaplet">Kaplet</option>
+                                                                    <option value="pil">Pil</option>
+                                                                    <option value="puyer" selected>Puyer</option>
+                                                                @else 
+                                                                    <option value="tablet">Tablet</option>
+                                                                    <option value="kapsul">Kapsul</option>
+                                                                    <option value="kaplet">Kaplet</option>
+                                                                    <option value="pil">Pil</option>
+                                                                    <option value="puyer">Puyer</option>
+                                                                @endif
+                                                            </select>
+                                                        </div>
                                                         <div class="mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">Harga</label>
                                                             <input value="{{ $data->harga }}" type="text"
                                                                 name="harga" class="form-control"
                                                                 id="exampleInputEmail1" aria-describedby="emailHelp">
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1" class="form-label">Satuan</label>
-                                                            <input value="{{ $data->satuan }}" type="text"
-                                                                name="satuan" class="form-control"
-                                                                id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1" class="form-label">Status</label>
-                                                            <input value="{{ $data->status }}" type="text"
-                                                                name="status" class="form-control"
-                                                                id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                        </div>
-                                                       
-
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -186,27 +248,27 @@
                 <form method="POST" action="{{ route('obat.store') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="no_rmd" class="form-label">Nama Obat</label>
-                        <input type="text" name="nama_obat" class="form-control" id="nama_obat" aria-describedby="emailHelp">
+                        <label for="nama_obat" class="form-label">Nama Obat</label>
+                        <input type="text" name="nama_obat" class="form-control" id="nama_obat" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <label for="nik" class="form-label">Kode Obat</label>
-                        <input type="text" name="kode_obat" class="form-control" id="kode_obat" aria-describedby="emailHelp">
+                        <label for="kode_obat" class="form-label">Kode Obat</label>
+                        <input type="text" name="kode_obat" class="form-control" id="kode_obat" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <label for="nama_pasien" class="form-label">Stok</label>
-                        <input type="text" name="stok" class="form-control" id="stok" aria-describedby="emailHelp">
+                        <label for="stok" class="form-label">Stok</label>
+                        <input type="text" name="stok" class="form-control" id="stok" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <select  id="pilihan" class="option form-control" placeholder="Pilih Status" class="form-control  form-select" name="status" id="OptionLevel">   
-                            <option>Pilih Status</option>
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" class="form-control" name="status" required>
                             <option value="in stock">In Stock</option>
                             <option value="out stock">Out Stock</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <select  id="pilihan" class="option form-control" placeholder="Pilih Satuan" class="form-control  form-select" name="satuan" id="OptionLevel">   
-                            <option>Pilih Satuan</option>
+                        <label for="satuan" class="form-label">Satuan</label>
+                        <select id="satuan" class="form-control" name="satuan" required>
                             <option value="tablet">Tablet</option>
                             <option value="kapsul">Kapsul</option>
                             <option value="kaplet">Kaplet</option>
@@ -216,9 +278,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga</label>
-                        <input type="text" name="harga" class="form-control" id="harga" aria-describedby="emailHelp">
+                        <input type="text" name="harga" class="form-control" id="harga" aria-describedby="emailHelp" required>
                     </div>
-                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -228,7 +289,8 @@
         </div>
     </div>
 </div>
-</div>
+
+
 @endsection
 @push('addon-script')
 <script type="text/javascript">

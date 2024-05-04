@@ -23,20 +23,20 @@
                 </span>
                 @enderror
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <a href="{{ route('password.request') }}"><b>Forgot password?</b></a>
-            </div>
+            </div> -->
             <div class="form-group d-flex justify-content-center">
                 <button type="submit" id="buttonLogin" class="btn btn-primary">Masuk</button>
             </div>
 
         </form>
-        <div class="signup">
+        <!-- <div class="signup">
             <span class="signup">Belum Punya Akun ?
                 <a href="{{ route('register') }}">Signup</a>
             </span>
         </div>
-    </div>
+    </div> -->
 
     {{-- <div class="registration form">
         <header>Signup</header>

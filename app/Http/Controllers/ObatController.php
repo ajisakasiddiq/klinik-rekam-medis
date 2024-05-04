@@ -33,17 +33,15 @@ class ObatController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            // Simpan data ke database
-            Obat::create($request->all());
-            return redirect()->route('obat.index')->with('success', 'Data berhasil disimpan.');
-        } catch (\Exception $e) {
-            dd($e);
-            // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('obat.index')->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
-        }
+    try {
+        // Simpan data ke database
+        $obat = Obat::create($request->all());
+        return redirect()->route('obat.index')->with('success', 'Obat "' . $obat->nama_obat . '" berhasil ditambahkan.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('obat.index')->with('error', 'Gagal menambahkan obat: ' . $e->getMessage());
     }
-
+}
     /**
      * Display the specified resource.
      */
@@ -66,11 +64,14 @@ class ObatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $user = Obat::findOrFail($id);
-            $user->update($request->all());
-
-        return redirect()->route('obat.index')->with('success', 'Data berhasil diperbarui.');
+    try {
+        $obat = Obat::findOrFail($id);
+        $obat->update($request->all());
+        return redirect()->route('obat.index')->with('success', 'Data obat "' . $obat->nama_obat . '" berhasil diperbarui.');
+    } catch (\Exception $e) {
+        return redirect()->route('obat.index')->with('error', 'Gagal memperbarui data obat: ' . $e->getMessage());
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +81,6 @@ class ObatController extends Controller
         $data = Obat::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('obat.index');
+        return redirect()->route('obat.index')->with('success', 'Data obat berhasil dihapus.');;
     }
 }

@@ -16,9 +16,10 @@ class KunjunganController extends Controller
     {
         $no = 1;
         $dokter = User::where('role','dokter')
-        ->where('status','aktif')->get();
+            ->where('status','aktif')->get();
         $pasien = Pasien::get();
-        $kunjungan = Pemeriksaan::with('pasien')->get();
+        $kunjungan = Pemeriksaan::with('pasien')->latest()->get(); // Mengambil data kunjungan dengan urutan berdasarkan waktu pembuatan, dengan yang terbaru di atas
+
         return view('pages.kunjungan',compact('kunjungan','no','dokter','pasien'));
     }
 

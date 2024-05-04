@@ -15,9 +15,10 @@ class ResepobatController extends Controller
     {
         $no = 1;
         $dokter = User::where('role','dokter')
-        ->where('status','aktif')->get();
+            ->where('status','aktif')->get();
         $pasien = Pasien::get();
-        $kunjungan = Pemeriksaan::with('pasien')->get();
+        // Mengambil data pemeriksaan dengan mengurutkan berdasarkan waktu pembuatan secara descending
+        $kunjungan = Pemeriksaan::with('pasien')->orderBy('created_at', 'desc')->get();
         return view('pages.resepobat',compact('kunjungan','no','dokter','pasien'));
     }
 

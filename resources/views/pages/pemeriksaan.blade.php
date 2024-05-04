@@ -106,7 +106,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Keluar</button>
-                                                    <button type="submit" class="btn btn-primary">Hapus</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </form>
 
                                                 </div>

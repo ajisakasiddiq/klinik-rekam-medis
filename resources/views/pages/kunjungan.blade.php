@@ -167,13 +167,13 @@
                         <label for="nama_tindakan" class="form-label">Nama Pasien</label>
                         <select class="form-control" name="pasien_id" id="pasien_id">
                             <option value="">Pilih Pasien</option>
-                            @foreach($pasien as $data)
-                            <option value="{{$data->id}}">{{$data->nama_pasien}}({{ $data->no_rmd }})</option>
+                            @foreach($pasien->reverse() as $data) <!-- Membalik urutan data -->
+                                <option value="{{$data->id}}">{{$data->nama_pasien}}({{ $data->no_rmd }})</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="nama_tindakan" class="form-label">Nama Pasien</label>
+                        <label for="nama_tindakan" class="form-label">Pilih Dokter</label>
                         <select class="form-control" name="user_id" id="user_id">
                             <option value="">Pilih Dokter</option>
                             @foreach($dokter as $data)

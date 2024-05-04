@@ -13,13 +13,13 @@ class PemeriksaanController extends Controller
      */
     public function index()
     {
-        $no = 1;
-        $dokter = User::where('role','dokter')
+    $no = 1;
+    $dokter = User::where('role','dokter')
         ->where('status','aktif')->get();
-        $pasien = Pasien::get();
-        $kunjungan = Pemeriksaan::with('pasien')->get();
-        return view('pages.pemeriksaan',compact('kunjungan','no','dokter','pasien'));
-    }
+    $pasien = Pasien::get();
+    $kunjungan = Pemeriksaan::with('pasien')->orderBy('created_at', 'desc')->get();
+    return view('pages.pemeriksaan',compact('kunjungan','no','dokter','pasien'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -60,10 +60,11 @@ class PemeriksaanController extends Controller
         {
             $user = Pemeriksaan::findOrFail($id);
 
-            if ($request->hasFile('foto')) {
-            $data = $request->all();
-            $data['foto'] = $request->file('foto')->store('assets/foto_fisik', 'public');
-            $user->update($data);
+            if ($request->hasFile('foto_fisik')) {
+    $data = $request->all();
+    $data['foto_fisik'] = $request->file('foto_fisik')->store('assets/foto_fisik', 'public');
+    $user->update($data);
+
             } else {
             $user->update($request->all());
         }

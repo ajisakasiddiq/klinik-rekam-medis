@@ -25,6 +25,12 @@
                                         <th>Status</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Waktu Kunjungan</th>
+                                        <th>Diameter</th>
+                                        <th>Jumlah</th>
+                                        <th>Posisi</th>
+                                        <th>Foto Fisik</th>
+                                        <th>Diagnosa</th>
+                                        <th>Tindakan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,6 +49,19 @@
                                         @endif
                                         <td>{{ $data->tgl_kunjungan }}</td>
                                         <td>{{ $data->waktu_kunjungan }}</td>
+                                        <td>{{ $data->diameter }}</td>
+                                        <td>{{ $data->jumlah }}</td>
+                                        <td>{{ $data->posisi }}</td>
+                                        <td>
+                                        @if($data->foto_fisik)
+                                            <img src="{{ asset('storage/' . $data->foto_fisik) }}" alt="Foto Fisik" style="max-width: 100px;">
+                                        @else
+                                            Foto tidak tersedia
+                                        @endif
+                                    </td>
+                                         <td>{{ $data->diagnosa }}</td>
+                                         <td>{{ $data->tindakan }}</td>
+
                                         <td>
                                           <div class="dropdown">
                                                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,7 +86,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="POST"
-                                                        action="{{ route('pemeriksaan.update', $data-> id) }}">
+                                                        action="{{ route('pemeriksaandokter.update', $data-> id) }}">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="mb-3">
@@ -96,7 +115,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- modal edit --}}
+                                    <!-- {{-- modal edit --}}
                                     <div class="modal fade" id="editUser{{ $data->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -193,7 +212,7 @@
                                             </div>
                                         </div>
                                     </div>
-                        </div>
+                        </div> -->
                         @endforeach
 
                         </tbody>
@@ -205,6 +224,12 @@
                                         <th>Status</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Waktu Kunjungan</th>
+                                        <th>Diameter</th>
+                                        <th>Jumlah</th>
+                                        <th>Posisi</th>
+                                        <th>Foto Fisik</th>
+                                        <th>Diagnosa</th>
+                                        <th>Tindakan</th>
                                         <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -218,7 +243,7 @@
 </div>
 {{-- </div> --}}
 
-{{-- modal add --}}
+<!-- {{-- modal add --}}
 <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -266,7 +291,7 @@
         </div>
     </div>
 </div>
-</div>
+</div> -->
 @endsection
 @push('addon-script')
 <script type="text/javascript">
@@ -275,4 +300,3 @@
     });
     </script>
 @endpush
-
