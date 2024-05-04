@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title','Kunjungan Pasien | Dokter' )
+@section('title','Kunjungan Pasien | Admin' )
 @section('content')
 <div class="container-fluid">
 
@@ -19,6 +19,17 @@
                             data-bs-toggle="modal" data-bs-target="#adduser">
                             + Kunjungan Baru
                         </a>
+                        @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @else
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('error') }}
+                            </div>
+                        @endif
+                    @endif
                         <div class="table-responsive">
                             <table id="UserData" class="display" style="width:100%">
                                 <thead>
@@ -64,7 +75,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data Tindakan</h1>
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data Kunjungan</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>

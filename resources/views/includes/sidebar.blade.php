@@ -68,17 +68,17 @@
     </li>
      <li class="nav-item">
         <a class="nav-link {{ (request()->is('resepobat')) ? 'active' : ''}}" href="{{ route('resepobat.index') }}">
-            <i class="fas fa-user-edit" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <i class="fas fa-pills" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Resep Obat</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('tindakan')) ? 'active' : ''}}" href="{{ route('tindakan.index') }}">
-            <i class="fas fa-user-edit" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <i class="fas fa-syringe" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Tindakan</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('rekammedis')) ? 'active' : ''}}" href="{{ route('rekammedis.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <i class="fas fa-file" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Rekam Medis</span></a>
     </li>
     @elseif(Auth::user()->role == 'apoteker')

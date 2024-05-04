@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title','Data Tindakan | Dokter' )
+@section('title','Data Tindakan | Perawat' )
 @section('content')
 <div class="container-fluid">
 
@@ -15,6 +15,17 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @else
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('error') }}
+                            </div>
+                        @endif
+                    @endif
                         <div class="table-responsive">
                             <table id="UserData" class="display" style="width:100%">
                                 <thead>

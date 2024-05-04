@@ -31,8 +31,15 @@ class PasienController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+   {
     try {
+        // Validasi data
+        $request->validate([
+            'no_rmd' => 'required|unique:pasien,no_rmd',
+            'nik' => 'required|unique:pasien,nik',
+            // tambahkan validasi lainnya sesuai kebutuhan
+        ]);
+
         // Simpan data ke database
         Pasien::create($request->all());
         return redirect()->route('pasien.index')->with('success', 'Data pasien ' . $request->nama_pasien . ' berhasil ditambahkan.');
@@ -40,7 +47,7 @@ class PasienController extends Controller
         // Tangkap pengecualian dan tampilkan pesan kesalahan
         return redirect()->route('pasien.index')->with('error', 'Gagal menambahkan data pasien: ' . $e->getMessage());
     }
-    }
+}
 
     /**
      * Display the specified resource.

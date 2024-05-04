@@ -59,19 +59,27 @@ class PemeriksaandokterController extends Controller
 
      public function update(Request $request, $id)
         {
-            $user = Pemeriksaan::findOrFail($id);
+    try {
+        $pemeriksaan = Pemeriksaan::findOrFail($id);
 
-            if ($request->hasFile('foto')) {
+        if ($request->hasFile('foto')) {
             $data = $request->all();
             $data['foto'] = $request->file('foto')->store('assets/foto_fisik', 'public');
-            $user->update($data);
-            } else {
-            $user->update($request->all());
+            $pemeriksaan->update($data);
+        } else {
+            $pemeriksaan->update($request->all());
         }
 
-            return redirect()->route('pemeriksaandokter.index')->with('success', 'Pemeriksaan berhasil diperbarui');
+        // Dapatkan nama pasien yang terkait dengan pemeriksaan
+        $nama_pasien = $pemeriksaan->pasien->nama_pasien;
 
-        }
+        // Berikan pesan bahwa pasien telah selesai diperiksa oleh dokter
+        return redirect()->route('pemeriksaandokter.index')->with('success', 'Pasien ' . $nama_pasien . ' telah selesai diperiksa oleh dokter.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('pemeriksaandokter.index')->with('error', 'Gagal memperbarui pemeriksaan: ' . $e->getMessage());
+    }
+}
 
     /**
      * Remove the specified resource from storage.

@@ -58,20 +58,33 @@ class PemeriksaanController extends Controller
 
      public function update(Request $request, $id)
         {
-            $user = Pemeriksaan::findOrFail($id);
+    try {
+        $pemeriksaan = Pemeriksaan::findOrFail($id);
 
-            if ($request->hasFile('foto_fisik')) {
-    $data = $request->all();
-    $data['foto_fisik'] = $request->file('foto_fisik')->store('assets/foto_fisik', 'public');
-    $user->update($data);
+        if ($request->hasFile('foto_fisik')) {
+            $data = $request->all();
+            $data['foto_fisik'] = $request->file('foto_fisik')->store('assets/foto_fisik', 'public');
+            $pemeriksaan->update($data);
 
-            } else {
-            $user->update($request->all());
+            // Dapatkan nama pasien yang terkait dengan pemeriksaan
+            $nama_pasien = $pemeriksaan->pasien->nama_pasien;
+
+            // Berikan pesan bahwa foto fisik telah berhasil dimasukkan sesuai dengan nama pasien
+            return redirect()->route('pemeriksaan.index')->with('success', 'Pasien ' . $nama_pasien . ' telah diperiksa oleh perawat dan berhasil memasukkan foto fisik.');
+        } else {
+            $pemeriksaan->update($request->all());
+
+            // Dapatkan nama pasien yang terkait dengan pemeriksaan
+            $nama_pasien = $pemeriksaan->pasien->nama_pasien;
+
+            // Berikan pesan bahwa pasien telah diperiksa oleh perawat
+            return redirect()->route('pemeriksaan.index')->with('success', 'Pasien ' . $nama_pasien . ' telah diperiksa oleh perawat.');
         }
-
-            return redirect()->route('pemeriksaan.index')->with('success', 'Pemeriksaan berhasil diperbarui');
-
-        }
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('pemeriksaan.index')->with('error', 'Gagal memperbarui pemeriksaan: ' . $e->getMessage());
+    }
+}
 
     /**
      * Remove the specified resource from storage.

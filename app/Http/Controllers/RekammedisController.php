@@ -15,9 +15,10 @@ class RekammedisController extends Controller
     {
         $no = 1;
         $dokter = User::where('role','dokter')
-        ->where('status','aktif')->get();
+            ->where('status','aktif')->get();
         $pasien = Pasien::get();
-        $kunjungan = Pemeriksaan::with('pasien')->get();
+        // Ambil data kunjungan dengan urutan berdasarkan waktu pembuatan, dimulai dari yang terbaru
+        $kunjungan = Pemeriksaan::with('pasien')->latest()->get();
         return view('pages.rekammedis',compact('kunjungan','no','dokter','pasien'));
     }
 

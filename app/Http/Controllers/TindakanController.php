@@ -32,17 +32,16 @@ class TindakanController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(TindakanRequest $request)
-    {
+     {
         try {
             // Simpan data ke database
             Tindakan::create($request->all());
-            return redirect()->route('tindakan.index')->with('success', 'Data berhasil disimpan.');
+            return redirect()->route('tindakan.index')->with('success', 'Tindakan berhasil ditambahkan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('tindakan.index')->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
+            return redirect()->route('tindakan.index')->with('error', 'Gagal menambahkan tindakan: ' . $e->getMessage());
         }
     }
-
     /**
      * Display the specified resource.
      */
@@ -65,21 +64,26 @@ class TindakanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = Tindakan::find($id); // Mencari data berdasarkan ID
+        try {
+            $data = Tindakan::find($id); // Mencari data berdasarkan ID
 
-        // Validasi input data jika diperlukan
-        $request->validate([
-            'nama_tindakan' => 'required',
-            'harga' => 'required',
-            // Tambahkan validasi untuk kolom lain sesuai kebutuhan
-        ]);
+            // Validasi input data jika diperlukan
+            $request->validate([
+                'nama_tindakan' => 'required',
+                'harga' => 'required',
+                // Tambahkan validasi untuk kolom lain sesuai kebutuhan
+            ]);
 
-        // Simpan perubahan data
-        $data->nama_tindakan = $request->input('nama_tindakan');
-        $data->harga = $request->input('harga');
-        // Setel nilai kolom lain sesuai kebutuhan
-        $data->save();
-        return redirect()->route('tindakan.index')->with('success', 'Data berhasil diperbarui.');
+            // Simpan perubahan data
+            $data->nama_tindakan = $request->input('nama_tindakan');
+            $data->harga = $request->input('harga');
+            // Setel nilai kolom lain sesuai kebutuhan
+            $data->save();
+            return redirect()->route('tindakan.index')->with('success', 'Tindakan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            // Tangkap pengecualian dan tampilkan pesan kesalahan
+            return redirect()->route('tindakan.index')->with('error', 'Gagal memperbarui tindakan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -87,10 +91,15 @@ class TindakanController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Tindakan::findOrFail($id);
-        $data->delete();
+        try {
+            $data = Tindakan::findOrFail($id);
+            $data->delete();
 
-        return redirect()->route('tindakan.index');
+            return redirect()->route('tindakan.index')->with('success', 'Tindakan berhasil dihapus.');
+        } catch (\Exception $e) {
+            // Tangkap pengecualian dan tampilkan pesan kesalahan
+            return redirect()->route('tindakan.index')->with('error', 'Gagal menghapus tindakan: ' . $e->getMessage());
+        }
     }
 }
 

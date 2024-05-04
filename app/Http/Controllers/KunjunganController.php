@@ -36,11 +36,20 @@ class KunjunganController extends Controller
      */
     public function store(Request $request)
     {
+    try {
         $data = $request->all();
         Pemeriksaan::create($data);
 
-        return redirect()->route('kunjungan.index');
+        // Dapatkan nama pasien yang terkait dengan kunjungan baru
+        $pasien = Pasien::findOrFail($data['pasien_id'])->nama_pasien;
+
+        // Berikan pesan bahwa kunjungan baru telah ditambahkan sesuai dengan nama pasien
+        return redirect()->route('kunjungan.index')->with('success', 'Kunjungan baru untuk ' . $pasien . ' telah ditambahkan.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('kunjungan.index')->with('error', 'Gagal menambahkan kunjungan: ' . $e->getMessage());
     }
+}
 
     /**
      * Display the specified resource.
@@ -71,9 +80,16 @@ class KunjunganController extends Controller
      */
     public function destroy(string $id)
     {
+    try {
         $data = Pemeriksaan::findOrFail($id);
+        $nama_pasien = $data->pasien->nama_pasien; // Dapatkan nama pasien yang terkait dengan kunjungan yang akan dihapus
         $data->delete();
 
-        return redirect()->route('kunjungan.index');
+        // Berikan pesan bahwa kunjungan telah dihapus sesuai dengan nama pasien
+        return redirect()->route('kunjungan.index')->with('success', 'Kunjungan untuk ' . $nama_pasien . ' telah dihapus.');
+    } catch (\Exception $e) {
+        // Tangkap pengecualian dan tampilkan pesan kesalahan
+        return redirect()->route('kunjungan.index')->with('error', 'Gagal menghapus kunjungan: ' . $e->getMessage());
     }
+}
 }
