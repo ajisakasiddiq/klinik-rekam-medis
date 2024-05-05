@@ -21,7 +21,8 @@ class Pasien extends Model
         'pekerjaan',
         'alamat',
         'no_telp',
-        'biaya',
+        'askes',
+        'statuspasien',
         'no_dana_sehat'
     ];
 

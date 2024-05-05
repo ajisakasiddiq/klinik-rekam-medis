@@ -21,6 +21,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>no_rm</th>
+                                        <th>No Periksa</th>
                                         <th>Nama</th>
                                         <th>Diagnosa</th>
                                         <th>Tindakan</th>
@@ -35,6 +36,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->pasien->no_rmd }}</td>
+                                        <td>{{ $data->no_periksa }}</td>
                                         <td>{{ $data->pasien->nama_pasien }}</td>
                                         <td>{{ $data->diagnosa }}</td>
                                         <td>{{ $data->tindakan }}</td>
@@ -53,7 +55,8 @@
                                                      Aksi
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Detail</a></li>
+                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser" class="dropdown-item">Buat Resep</a></li>
+                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser" class="dropdown-item">Detail</a></li>
                                                     <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>  
                                                 </ul>
                                             </div>
@@ -105,45 +108,7 @@
                                     </div>
 
                                     {{-- modal edit --}}
-                                    <div class="modal fade" id="editUser{{ $data->id }}" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-3" id="exampleModalLabel">Ubah Data Tindakan</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST"
-                                                        action="{{ route('kunjungan.update', $data-> id) }}">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1"
-                                                                class="form-label">Nama Tindakan</label>
-                                                            <input value="{{ $data->nama_tindakan }}" type="text" name="nama_tindakan"
-                                                                class="form-control" id="exampleInputEmail1"
-                                                                aria-describedby="emailHelp">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1" class="form-label">Harga</label>
-                                                            <input value="{{ $data->harga }}" type="text"
-                                                                name="harga" class="form-control"
-                                                                id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                        </div>
-
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                  
                         </div>
                         @endforeach
 
@@ -152,6 +117,7 @@
                             <tr>
                                         <th>No</th>  
                                         <th>no_rm</th>
+                                        <th>No Periksa</th>
                                         <th>Nama</th>
                                         <th>Diagnosa</th>
                                         <th>Tindakan</th>
@@ -170,6 +136,60 @@
 
 </div>
 {{-- </div> --}}
+
+
+                  <div class="modal fade" id="editUser" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-3" id="exampleModalLabel">Tambah Resep Obat</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST"
+                                                        action="{{ route('resepobat.store') }}">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1"
+                                                                class="form-label">Pilih Pemeriksaan </label>
+                                                                <select name="id_periksa" id="id_periksa"  class="form-control">
+                                                                    @foreach($periksa as $data)
+                                                                    <option value="{{ $data->id }}">{{ $data->pasien->nama_pasien }}({{ $data->no_periksa }})</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1"
+                                                                class="form-label">Pembelian</label>
+                                                                <select name="pembelian" id="pembelian"  class="form-control">
+                                                                    <option value="sendiri">Sendiri</option>
+                                                                    <option value="apotek">Apotek</option>
+                                                                </select>
+                                                                 <input value="belum" type="hidden" name="status"
+                                                                class="form-control" id="status"
+                                                                aria-describedby="emailHelp">
+                                                        </div>
+                                                        
+                                                        <div id="entriesContainer">
+                                                                <!-- Container untuk field-field entri -->
+                                                          </div>
+                                                <button type="button" class="btn btn-secondary" id="addEntryButton">+</button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
 {{-- modal add --}}
 <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -223,6 +243,42 @@
 @endsection
 @push('addon-script')
 <script type="text/javascript">
+     $(document).ready(function() {
+        let inputIndex = 1;
+
+        $('#addEntryButton').click(function() {
+            const id_periksa = $('#id_periksa').val();
+            const status = $('#status').val();
+            const pembelian = $('#pembelian').val();
+
+            const inputHtml = `
+            <div class="row">
+            
+           
+            <div class="col-md-4">
+             <label for="id_obat${inputIndex}" class="form-label">Nama Obat</label>
+            <select name="id_obat[]" id="id_obat${inputIndex}" class="form-control">
+                                                            @foreach($resep_obat as $data)
+                                                            <option value="{{$data->id}}">{{$data->nama_obat}}</option>
+                                                            @endforeach
+                                                        </select>
+            </div>
+            <div class="col-md-4">
+                        <label for="deskripsi${inputIndex}" class="form-label">Deskripsi</label>
+                        <input type="text" name="deskripsi[]" class="form-control" id="deskripsi${inputIndex}" aria-describedby="emailHelp">
+                    </div>
+                                <div class="col-md-4">
+                        <label for="aturanpakai${inputIndex}" class="form-label">Aturan Pakai</label>
+                        <input type="text" name="aturanpakai[]" class="form-control" id="aturanpakai${inputIndex}" aria-describedby="emailHelp">
+                    </div>
+            </div>
+            `;
+
+            $('#entriesContainer').append(inputHtml);
+            inputIndex++;
+        });
+    });
+
   $(document).ready(function() {
         $('#UserData').DataTable();
     });

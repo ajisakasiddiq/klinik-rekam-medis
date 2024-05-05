@@ -16,6 +16,7 @@ class Pemeriksaan extends Model
         'tgl_kunjungan',
         'waktu_kunjungan',
         'no_periksa',
+        'no_antrian',
         'keluhan',
         'tb',
         'td',

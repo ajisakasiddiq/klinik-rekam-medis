@@ -20,11 +20,10 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>no_rm</th>
+                                        <th>no_periksa</th>
                                         <th>Nama</th>
-                                        <th>Diagnosa</th>
-                                        <th>Tindakan</th>
-                                        <th>Status</th>
+                                        <th>Status Pemeriksaan</th>
+                                        <th>Status Obat</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Waktu Kunjungan</th>
                                         <th>Aksi</th>
@@ -34,112 +33,64 @@
                                     @foreach ($kunjungan as $data)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $data->pasien->no_rmd }}</td>
-                                        <td>{{ $data->pasien->nama_pasien }}</td>
-                                        <td>{{ $data->diagnosa }}</td>
-                                        <td>{{ $data->tindakan }}</td>
-                                        @if($data->status == '0')
+                                        <td>{{ $data->no_periksa }}</td>
+                                        <td>{{ $data->nama_pasien }}</td>
+                                        @if($data->statuspemeriksaan == '0')
                                         <td><span class="mb-1 badge font-medium badge-secondary py-2 px-3 fs-7">Menunggu</span></td>
-                                        @elseif($data->status == '1')
+                                        @elseif($data->statuspemeriksaan == '1')
                                          <td><span class="mb-1 badge font-medium badge-primary py-2 px-3 fs-7">Diperiksa</span></td>
-                                        @elseif($data->status == '2')
+                                        @elseif($data->statuspemeriksaan == '2')
                                       <td> <span class="mb-1 badge font-medium badge-success py-2 px-3 fs-7">Selesai</span></td>
+                                        @endif
+
+                                        @if($data->statusobat == 'belum')
+                                        <td><span class="mb-1 badge font-medium badge-secondary py-2 px-3 fs-7">Menunggu</span></td>
+                                        @elseif($data->statusobat == 'sudah diambil')
+                                         <td><span class="mb-1 badge font-medium badge-success py-2 px-3 fs-7">Sudah Diambil</span></td>
+                                        @else
+                                      <td> <span class="mb-1 badge font-medium badge-danger py-2 px-3 fs-7">undifined</span></td>
                                         @endif
                                         <td>{{ $data->tgl_kunjungan }}</td>
                                         <td>{{ $data->waktu_kunjungan }}</td>
                                         <td>
-                                          <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                     Aksi
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Detail</a></li>
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>  
-                                                </ul>
-                                            </div>
-                                            @if($data->status == "0")
-                                            <form action="{{ route('resepobat.update', $data->id) }}"
+                                            <a  href="{{ route('detail.index',['id_periksa', $data->id_periksa]) }}" class="btn btn-primary m-1">Detail</a>
+                                            @if($data->statusobat == 'belum')
+                                            <form action="{{ route('obatpasien.update', $data->id_periksa) }}"
                                            method="POST">
                                                         @csrf
                                                          @method('PUT')
-                                                        <input type="hidden" name="status" value="2">
+                                                        <input type="hidden" name="status" value="sudah diambil">
                                                         <button type="submit" class="btn btn-success m-1">selesai</button>
                                         </form>
-                                        @elseif($data->status == "1")
-                                          <form action="{{ route('resepobat.update', $data->id) }}"
-                                           method="POST">
-                                                        @csrf
-                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="2">
-                                                        <button type="submit" class="btn btn-success m-1">selesai</button>
-                                        </form>
+                                        @elseif($data->statusobat == 'sudah diambil')
+                                          <!-- <span class="bg-succes">SUKSES</span> -->
                                         @endif
+                                        
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="deletedata{{ $data->id }}" tabindex="-1"
+                        </div>
+                                {{-- modal edit --}}
+                                    <div class="modal fade" id="viewdetail" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data Tindakan</h1>
+                                                    <h1 class="modal-title fs-3" id="exampleModalLabel">Resep Obat Pasien</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('kunjungan.destroy', $data->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <p>Anda Yakin akan menghapus data {{ $data->nama_tindakan }}?</p>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Keluar</button>
-                                                    <button type="submit" class="btn btn-primary">Hapus</button>
-                                                    </form>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {{-- modal edit --}}
-                                    <div class="modal fade" id="editUser{{ $data->id }}" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-3" id="exampleModalLabel">Ubah Data Tindakan</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST"
-                                                        action="{{ route('kunjungan.update', $data-> id) }}">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1"
-                                                                class="form-label">Nama Tindakan</label>
-                                                            <input value="{{ $data->nama_tindakan }}" type="text" name="nama_tindakan"
-                                                                class="form-control" id="exampleInputEmail1"
-                                                                aria-describedby="emailHelp">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1" class="form-label">Harga</label>
-                                                            <input value="{{ $data->harga }}" type="text"
-                                                                name="harga" class="form-control"
-                                                                id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                        </div>
-
-
+                                                    <p><strong>No Periksa:</strong> <span id="no_periksa">{{ $data->no_periksa}}</span></p>
+                                                    <p><strong>Nama Pasien:</strong> <span id="nama_pasien">{{ $data->nama_pasien}}</span></p>
+                                                    <p><strong>Nama Obat:</strong> <span id="nama_obat">{{ $data->nama_obat}}</span></p>
+                                                    <p><strong>Aturan Pakai:</strong> <span id="aturanpakai">{{ $data->aturanpakai}}</span></p>
+                                                    <p><strong>Deskripsi:</strong> <span id="deskripsi">{{ $data->deskripsi}}</span></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </form>
+                                                    <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
+        
                                                 </div>
                                             </div>
                                         </div>
@@ -150,12 +101,11 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                        <th>No</th>  
-                                        <th>no_rm</th>
+                                        <th>No</th>
+                                        <th>no_periksa</th>
                                         <th>Nama</th>
-                                        <th>Diagnosa</th>
-                                        <th>Tindakan</th>
-                                        <th>Status</th>
+                                        <th>Status Pemeriksaan</th>
+                                        <th>Status Obat</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Waktu Kunjungan</th>
                                         <th>Aksi</th>

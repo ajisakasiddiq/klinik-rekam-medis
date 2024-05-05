@@ -36,7 +36,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th>no_rm</th>
+                                        <th>No_Periksa</th>
+                                        <th>No_Antrian</th>
                                         <th>Nama</th>
+                                        <th>Askes</th>
                                         <th>Status</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Waktu Kunjungan</th>
@@ -48,7 +51,10 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->pasien->no_rmd }}</td>
+                                        <td>{{ $data->no_periksa }}</td>
+                                        <td>{{ $data->no_antrian }}</td>
                                         <td>{{ $data->pasien->nama_pasien }}</td>
+                                        <td>{{ $data->askes }}</td>
                                         @if($data->status == '0')
                                         <td><span class="mb-1 badge font-medium badge-secondary py-2 px-3 fs-7">Menunggu</span></td>
                                         @elseif($data->status == '1')
@@ -64,7 +70,7 @@
                                                      Aksi
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                    <!-- <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Edit</a></li> -->
+                                                    <li><a href="cetak-antrian/{{ $data->id }}" class="dropdown-item">Cetak Antrian</a></li>
                                                     <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>  
                                                 </ul>
                                             </div>
@@ -146,7 +152,10 @@
                             <tr>
                                 <th>No</th>
                                         <th>no_rm</th>
+                                        <th>no_periksa</th>
+                                        <th>No_Antrian</th>
                                         <th>Nama</th>
+                                        <th>Askes</th>
                                         <th>Status</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Waktu Kunjungan</th>

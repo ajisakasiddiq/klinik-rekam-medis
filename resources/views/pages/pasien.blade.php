@@ -46,8 +46,9 @@
                                         <th>Pekerjaan</th>
                                         <th>Alamat</th>
                                         <th>No_Telp</th>
-                                        <th>Biaya</th>
+                                        <th>Askes</th>
                                         <th>No_Dana_Sehat</th>
+                                        <th>Status_Pasien</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -66,8 +67,9 @@
                                         <td>{{ $data->pekerjaan }}</td>
                                         <td>{{ $data->alamat }}</td>
                                         <td>{{ $data->no_telp }}</td>
-                                        <td>{{ $data->biaya }}</td>
+                                        <td>{{ $data->askes }}</td>
                                         <td>{{ $data->no_dana_sehat }}</td>
+                                        <td>{{ $data->statuspasien }}</td>
                                         <td>
                                           <div class="dropdown">
                                                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -203,17 +205,17 @@
                                                                 id="exampleInputPassword1">
                                                         </div>
                                                         <div class="mb-3">
-                                                        <select  id="pilihan" class="option form-control" placeholder="Pilih Biaya" class="form-control  form-select" name="biaya" id="OptionLevel">   
-                                                            @if($data->biaya == 'Umum')
-                                                            <option>Pilih Biaya</option>
+                                                        <select  id="pilihan" class="option form-control" placeholder="Pilih Biaya" class="form-control  form-select" name="askes" id="OptionLevel">   
+                                                            @if($data->askes == 'Umum')
+                                                            <option>Pilih Askes</option>
                                                             <option value="Umum" selected>Umum</option>
                                                             <option value="Dana_sehat">Dana Sehat</option>
-                                                            @elseif($data->biaya == 'Dana_Sehat')
-                                                            <option>Pilih Biaya</option>
+                                                            @elseif($data->askes == 'Dana_Sehat')
+                                                            <option>Pilih Askes</option>
                                                             <option value="Dana_Sehat" selected>Dana Sehat</option>
                                                             <option value="Umum">Umum</option>
                                                             @else 
-                                                            <option>Pilih Biaya</option>
+                                                            <option>Pilih Askes</option>
                                                             <option value="Umum">Umum</option>
                                                             <option value="Dana_sehat">Dana_Sehat</option>
                                                             @endif
@@ -225,6 +227,13 @@
                                                                 name="no_dana_sehat" class="form-control"
                                                                 id="exampleInputPassword1">
                                                         </div>
+                                                    <div class="mb-3">
+                                                    <select  id="pilihan" class="option form-control" placeholder="Pilih Biaya" class="form-control  form-select" name="statuspasien" id="OptionLevel">   
+                                                        <option>Pilih Status Pasien</option>
+                                                        <option value="Lama">Lama</option>
+                                                        <option value="Baru">Baru</option>
+                                                    </select>
+                                                </div>
 
 
                                                 </div>
@@ -255,8 +264,9 @@
                                 <th>Pekerjaan</th>
                                 <th>Alamat</th>
                                 <th>No_Telp</th>
-                                <th>Biaya</th>
+                                <th>Askes</th>
                                 <th>No_Dana_Sehat</th>
+                                <th>Status_Pasien</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -283,18 +293,18 @@
                     @csrf
                     <div class="mb-3">
                         <label for="no_rmd" class="form-label">No Rmd</label>
-                        <input type="text" name="no_rmd" class="form-control" id="no_rmd" aria-describedby="emailHelp">
+                        <input type="text" name="no_rmd" class="form-control" id="no_rmd" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
                         <label for="nik" class="form-label">Nik</label>
-                        <input type="text" name="nik" class="form-control" id="nik" aria-describedby="emailHelp">
+                        <input type="text" name="nik" class="form-control" id="nik" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
                         <label for="nama_pasien" class="form-label">Nama Pasien</label>
-                        <input type="text" name="nama_pasien" class="form-control" id="nama_pasien" aria-describedby="emailHelp">
+                        <input type="text" name="nama_pasien" class="form-control" id="nama_pasien" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
-                        <select  id="pilihan" class="option form-control" placeholder="Pilih Jenis Kelamin" class="form-control  form-select" name="jenis_kelamin" id="OptionLevel">   
+                        <select  id="pilihan" class="option form-control" placeholder="Pilih Jenis Kelamin" class="form-control  form-select" name="jenis_kelamin" id="OptionLevel" require>   
                             <option>Pilih Jenis Kelamin</option>
                             <option value="L">Laki-laki</option>
                             <option value="P">Perempuan</option>
@@ -302,35 +312,35 @@
                     </div>
                     <div class="mb-3">
                         <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" aria-describedby="emailHelp">
+                        <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" aria-describedby="emailHelp"require>
                     </div>
                     <div class="mb-3">
                         <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" aria-describedby="emailHelp">
+                        <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
                         <label for="usia" class="form-label">Usia</label>
-                        <input type="text" name="usia" class="form-control" id="usia" aria-describedby="emailHelp">
+                        <input type="text" name="usia" class="form-control" id="usia" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
                         <label for="agama" class="form-label">Agama</label>
-                        <input type="text" name="agama" class="form-control" id="agama" aria-describedby="emailHelp">
+                        <input type="text" name="agama" class="form-control" id="agama" aria-describedby="emailHelp" require> 
                     </div>
                     <div class="mb-3">
                         <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                        <input type="text" name="pekerjaan" class="form-control" id="pekerjaan" aria-describedby="emailHelp">
+                        <input type="text" name="pekerjaan" class="form-control" id="pekerjaan" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="alamat" aria-describedby="emailHelp">
+                        <input type="text" name="alamat" class="form-control" id="alamat" aria-describedby="emailHelp" require>
                     </div>
                     <div class="mb-3">
                         <label for="no_telp" class="form-label">No Telp</label>
-                        <input type="text" name="no_telp" class="form-control" id="no_telp" aria-describedby="emailHelp">
+                        <input type="text" name="no_telp" class="form-control" id="no_telp" aria-describedby="emailHelp" require>
                     </div>
                      <div class="mb-3">
-                        <select  id="pilihan" class="option form-control" placeholder="Pilih Biaya" class="form-control  form-select" name="biaya" id="OptionLevel">   
-                            <option>Pilih Biaya</option>
+                        <select  id="pilihan" class="option form-control" placeholder="Pilih Biaya" class="form-control  form-select" name="askes" id="OptionLevel" require>   
+                            <option>Pilih Askes</option>
                             <option value="Umum">Umum</option>
                             <option value="Dana_Sehat">Dana Sehat</option>
                         </select>
@@ -339,6 +349,14 @@
                         <label for="no_dana_sehat" class="form-label">No Dana Sehat</label>
                         <input type="text" name="no_dana_sehat" class="form-control" id="no_dana_sehat" aria-describedby="emailHelp">
                     </div>
+                    <div class="mb-3">
+                        <select  id="pilihan" class="option form-control" placeholder="Pilih Biaya" class="form-control  form-select" name="statuspasien" id="OptionLevel" require>   
+                            <option>Pilih Status Pasien</option>
+                            <option value="Lama">Lama</option>
+                            <option value="Baru">Baru</option>
+                        </select>
+                    </div>
+                
 
             </div>
             <div class="modal-footer">

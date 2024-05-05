@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KunjunganController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware();
 Route::get('/create', 'PasienController@create')->name('pasien.create');
 Route::get('/obat', 'ObatController@index');
+// Route::get('/kunjungan', [KunjunganController::class, 'index']);
 
 
 
@@ -37,3 +39,6 @@ Route::resource('rekammedis', 'App\Http\Controllers\RekammedisController')->midd
 Route::resource('resepobat', 'App\Http\Controllers\ResepobatController')->middleware('auth');
 Route::resource('obatpasien', 'App\Http\Controllers\ObatpasienController')->middleware('auth');
 Route::resource('supplier', 'App\Http\Controllers\SupplierController')->middleware('auth');
+Route::resource('detail', 'App\Http\Controllers\DetailresepobatController')->middleware('auth');
+Route::get('/cetak-antrian/{id}',  [KunjunganController::class, 'cetakAntrian']);
+

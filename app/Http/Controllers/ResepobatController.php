@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Pemeriksaan;
 use App\Models\User;
 use App\Models\Pasien;
+use App\Models\Obat;
+use App\Models\Resep;
 class ResepobatController extends Controller
 {
     /**
@@ -17,9 +19,11 @@ class ResepobatController extends Controller
         $dokter = User::where('role','dokter')
             ->where('status','aktif')->get();
         $pasien = Pasien::get();
+        $periksa = Pemeriksaan::with('pasien')->get();
+        $resep_obat = Obat::get();
         // Mengambil data pemeriksaan dengan mengurutkan berdasarkan waktu pembuatan secara descending
         $kunjungan = Pemeriksaan::with('pasien')->orderBy('created_at', 'desc')->get();
-        return view('pages.resepobat',compact('kunjungan','no','dokter','pasien'));
+        return view('pages.resepobat',compact('kunjungan','no','dokter','pasien', 'resep_obat','periksa'));
     }
 
     /**
@@ -35,12 +39,29 @@ class ResepobatController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        Pemeriksaan::create($data);
+        // dd($request['pembelian']);
+        try{
+        foreach ($request['id_obat'] as $index => $id_obat) {
+            $aturanpakai = (string) $request['aturanpakai'][$index];
+            $deskripsi = $request['deskripsi'][$index];
+
+                // Simpan ke database sesuai kebutuhan Anda
+                Resep::create([
+                    'id_periksa' => $request['id_periksa'],
+                    'pembelian' => $request['pembelian'],
+                    'status' => $request['status'],
+                    'deskripsi' => (string) $deskripsi,
+                    'aturanpakai' => (string) $aturanpakai,
+                    'id_obat' => (string) $id_obat,
+                ]);
+}
+        // Pemeriksa::create($data);
 
         return redirect()->route('resepobat.index');
+    }catch(\Exception $e){
+        dd($e);
     }
-
+    }
     /**
      * Display the specified resource.
      */

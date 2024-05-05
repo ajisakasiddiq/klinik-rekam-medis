@@ -61,9 +61,9 @@ class PemeriksaanController extends Controller
     try {
         $pemeriksaan = Pemeriksaan::findOrFail($id);
 
-        if ($request->hasFile('foto_fisik')) {
+        if ($request->hasFile('foto')) {
             $data = $request->all();
-            $data['foto_fisik'] = $request->file('foto_fisik')->store('assets/foto_fisik', 'public');
+            $data['foto'] = $request->file('foto')->store('assets/foto_fisik', 'public');
             $pemeriksaan->update($data);
 
             // Dapatkan nama pasien yang terkait dengan pemeriksaan

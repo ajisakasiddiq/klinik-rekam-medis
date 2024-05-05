@@ -32,6 +32,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>no_rm</th>
+                                        <th>No Periksa</th>
                                         <th>Nama</th>
                                         <th>Status</th>
                                         <th>Tanggal Kunjungan</th>
@@ -44,6 +45,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->pasien->no_rmd }}</td>
+                                        <td>{{ $data->no_periksa }}</td>
                                         <td>{{ $data->pasien->nama_pasien }}</td>
                                         @if($data->status == '0')
                                         <td><span class="mb-1 badge font-medium badge-secondary py-2 px-3 fs-7">Menunggu</span></td>
@@ -108,7 +110,7 @@
                                                         <div class="mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">Foto Fisik</label>
                                                             <input  type="file" 
-                                                                name="" class="form-control" 
+                                                                name="foto" class="form-control" 
                                                                 id="exampleInputEmail1" aria-describedby="emailHelp">
                                                         </div>
                                                         
@@ -230,6 +232,7 @@
                             <tr>
                                 <th>No</th>
                                         <th>no_rm</th>
+                                        <th>No Periksa</th>
                                         <th>Nama</th>
                                         <th>Status</th>
                                         <th>Tanggal Kunjungan</th>

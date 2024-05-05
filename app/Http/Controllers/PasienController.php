@@ -32,6 +32,7 @@ class PasienController extends Controller
      */
     public function store(Request $request)
    {
+    // dd($request['jenis_kelamin']);
     try {
         // Validasi data
         $request->validate([
@@ -86,7 +87,8 @@ class PasienController extends Controller
             'pekerjaan' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
-            'biaya' => 'required',
+            'askes' => 'required',
+            'statuspasien' => 'nullable',
             'no_dana_sehat' => 'nullable',
             // Tambahkan validasi untuk kolom lain sesuai kebutuhan
         ]);
