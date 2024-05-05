@@ -53,7 +53,8 @@
                                         <td>{{ $data->tgl_kunjungan }}</td>
                                         <td>{{ $data->waktu_kunjungan }}</td>
                                         <td>
-                                            <a  href="{{ route('detail.index',['id_periksa', $data->id_periksa]) }}" class="btn btn-primary m-1">Detail</a>
+                                          <a href="{{ route('detail.index', ['id_periksa' => $data->id_periksa]) }}" class="btn btn-primary m-1">Detail</a>
+
                                             @if($data->statusobat == 'belum')
                                             <form action="{{ route('obatpasien.update', $data->id_periksa) }}"
                                            method="POST">

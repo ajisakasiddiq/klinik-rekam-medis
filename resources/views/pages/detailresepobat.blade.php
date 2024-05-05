@@ -1,83 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Resep Obat</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        .modal {
-            font-size: 16px;
-            width: 400px;
-            max-width: 80%;
-            margin: 100px auto;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .modal h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
-
-        .modal p {
-            margin-bottom: 10px;
-        }
-
-        .modal strong {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .modal span {
-            color: #777;
-        }
-
-        .close-btn {
-            background-color: #ddd;
-            color: #333;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .close-btn:hover {
-            background-color: #ccc;
-        }
-    </style>
-</head>
-<body>
-    <div class="modal">
-        <h2>Detail Resep Obat</h2>
-        <div class="modal-body">
-            <p><strong>No Periksa:</strong> <span id="noPeriksa">{{ $resep->no_periksa }}</span></p>
-            <p><strong>Nama Pasien:</strong> <span id="namaPasien">{{ $resep->pasien->nama_pasien }}</span></p>
-            <p><strong>Nama Obat:</strong> <span id="namaObat">{{ $resep->obat->nama_obat }}</span></p>
-            <p><strong>Aturan Pakai:</strong> <span id="aturanPakai">{{ $resep->aturan_pakai }}</span></p>
-            <p><strong>Deskripsi:</strong> <span id="deskripsi">{{ $resep->deskripsi }}</span></p>
-        </div>
-        <button class="close-btn" onclick="closeModal()">Close</button>
+@extends('layouts.dashboard')
+@section('title','Detail Resep Obat' )
+@section('content')
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Resep Obat</h1>
     </div>
+    <div class="dashboard-content mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        @foreach($kunjungan as $data)
+                      <div class="row">
+    <div class="col-md-8">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td style="font-size: 19px; width: 30%; font-weight: bold;">No Periksa</td>
+                <td style="font-size: 19px; font-weight: bold;">: {{ $data->no_periksa }}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 19px; font-weight: bold;">Nama Pasien</td>
+                <td style="font-size: 19px; font-weight: bold;">: {{ $data->nama_pasien }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <script>
-        function closeModal() {
-            var modal = document.querySelector('.modal');
-            modal.style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+
+
+                        @endforeach
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nana Obat</th>
+                                    <th scope="col">Aturan Pakai</th>
+                                    <th scope="col">Deskripsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($resep as $data)
+                                <tr>
+                                    <th scope="row">{{$no++}}</th>
+                                    <td>{{$data->nama_obat}}</td>
+                                    <td>{{$data->aturanpakai}}</td>
+                                    <td>{{$data->deskripsi}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@push('addon-script')
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+        $('#UserData').DataTable();
+    });
+    </script> -->
+@endpush
