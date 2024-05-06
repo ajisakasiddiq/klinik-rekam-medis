@@ -16,6 +16,7 @@ class PasienController extends Controller
     $no = 1;
     $pasien = Pasien::orderBy('created_at', 'desc')->get(); // Mengambil data pasien dengan urutan berdasarkan waktu pembuatan, dengan yang terbaru di atas
 
+
     return view('pages.pasien', compact(
         'no',
         'pasien'

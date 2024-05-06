@@ -42,3 +42,4 @@ Route::resource('supplier', 'App\Http\Controllers\SupplierController')->middlewa
 Route::resource('detail', 'App\Http\Controllers\DetailresepobatController')->middleware('auth');
 Route::get('/cetak-antrian/{id}',  [KunjunganController::class, 'cetakAntrian']);
 
+

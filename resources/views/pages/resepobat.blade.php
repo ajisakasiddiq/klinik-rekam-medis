@@ -50,6 +50,8 @@
                                         <td>{{ $data->tgl_kunjungan }}</td>
                                         <td>{{ $data->waktu_kunjungan }}</td>
                                         <td>
+                                           <a href="{{ route('detail.index', ['id_periksa' => $data->id_periksa]) }}" class="btn btn-primary m-1">Detail</a>
+
                                           <div class="dropdown">
                                                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                      Aksi

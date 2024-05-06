@@ -54,7 +54,15 @@
                 border: none;
                 border-radius: 0;
                 box-shadow: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: center; /* Menengahkan secara vertikal */
+                align-items: center; /* Menengahkan secara horizontal */
+                height: 100vh; /* Menggunakan tinggi layar penuh */
+    
             }
+            
+
             table {
                 width: 100%;
             }
@@ -62,7 +70,7 @@
                 border: none;
                 padding: 6px;
                 text-align: center;
-                font-size: 18px; /* Ukuran teks untuk sel saat mencetak */
+                font-size: 100px; /* Ukuran teks untuk sel saat mencetak */
             }
             th {
                 background-color: #f2f2f2;
@@ -74,7 +82,7 @@
                 background-color: #ddd;
             }
             .large-number {
-                font-size: 60px; /* Ukuran teks untuk nomor antrian */
+                font-size: 150px; /* Ukuran teks untuk nomor antrian */
                 font-weight: bold; /* Tambahkan gaya bold untuk angka nomor antrian */
             }
         }
