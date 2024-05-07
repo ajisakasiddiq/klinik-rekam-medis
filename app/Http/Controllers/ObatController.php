@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ObatRequest;
-use App\Http\Controllers\ObatController;
+// use App\Http\Controllers\ObatController;
 use App\Models\Obat;
+
 class ObatController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class ObatController extends Controller
             'no',
             'obat',
             'jumlah_obat'
-            
+
         ));
     }
 
@@ -78,7 +79,7 @@ class ObatController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-     {
+    {
         try {
             $data = Obat::findOrFail($id);
             $data->delete();
@@ -87,5 +88,4 @@ class ObatController extends Controller
             return redirect()->route('obat.index')->with('error', 'Gagal menghapus data obat: ' . $e->getMessage());
         }
     }
-
 }
