@@ -130,9 +130,12 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">Tindakan</label>
-                                                            <input value="{{ $data->tindakan }}" type="text"
-                                                                name="tindakan" class="form-control"
-                                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                            <select class="form-control" name="tindakan" id="tindakan">
+                                                                @foreach ($tindakan as $item)
+                                                                    
+                                                                <option value="{{ $item->nama_tindakan }}">{{ $item->nama_tindakan }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                             
                                                 </div>

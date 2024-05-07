@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailresepobatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KunjunganController;
@@ -41,5 +42,4 @@ Route::resource('obatpasien', 'App\Http\Controllers\ObatpasienController')->midd
 Route::resource('supplier', 'App\Http\Controllers\SupplierController')->middleware('auth');
 Route::resource('detail', 'App\Http\Controllers\DetailresepobatController')->middleware('auth');
 Route::get('/cetak-antrian/{id}',  [KunjunganController::class, 'cetakAntrian']);
-
-
+Route::get('/cetak/{id}',  [DetailresepobatController::class, 'cetak']);
