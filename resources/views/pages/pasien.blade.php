@@ -371,8 +371,12 @@
 @endsection
 @push('addon-script')
 <script type="text/javascript">
-  $(document).ready(function() {
-        $('#UserData').DataTable();
+    $(document).ready(function() {
+        $('#UserData').DataTable({
+            "scrollX": true, // Enable horizontal scrolling
+            "scrollCollapse": true, 
+        });
     });
-    </script>
+</script>
+
 @endpush
