@@ -202,7 +202,7 @@
                                                             <input value="{{ $data->keluhan }}" type="text"
                                                                 name="keluhan" class="form-control"
                                                                 id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                            <input value="1" type="text"
+                                                            <input value="1" type="hidden"
                                                                 name="status" class="form-control"
                                                                 id="exampleInputEmail1" aria-describedby="emailHelp">
                                                         </div>

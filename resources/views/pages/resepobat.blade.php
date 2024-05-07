@@ -50,8 +50,7 @@
                                         <td>{{ $data->tgl_kunjungan }}</td>
                                         <td>{{ $data->waktu_kunjungan }}</td>
                                         <td>
-                                           <a href="{{ route('detail.index', ['id_periksa' => $data->id_periksa]) }}" class="btn btn-primary m-1">Detail</a>
-
+                                    
                                           <div class="dropdown">
                                                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                      Aksi
@@ -155,26 +154,17 @@
                                                         @csrf
                                                         @method('POST')
                                                         <div class="mb-3">
-                                                            <label for="exampleInputEmail1"
-                                                                class="form-label">Pilih Pemeriksaan </label>
-                                                                <select name="id_periksa" id="id_periksa"  class="form-control">
-                                                                    @foreach($periksa as $data)
-                                                                    <option value="{{ $data->id }}">{{ $data->pasien->nama_pasien }}({{ $data->no_periksa }})</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1"
-                                                                class="form-label">Pembelian</label>
-                                                                <select name="pembelian" id="pembelian"  class="form-control">
-                                                                    <option value="sendiri">Sendiri</option>
-                                                                    <option value="apotek">Apotek</option>
-                                                                </select>
-                                                                 <input value="belum" type="hidden" name="status"
-                                                                class="form-control" id="status"
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1"
+                        class="form-label">Pembelian</label>
+                        <select name="pembelian" id="pembelian"  class="form-control">
+                            <option value="sendiri">Sendiri</option>
+                            <option value="apotek">Apotek</option>
+                        </select>
+                        <input value="belum" type="hidden" name="status"
+                        class="form-control" id="status"
                                                                 aria-describedby="emailHelp">
+                                                                <input value="{{ $data->id }}" type="hidden" name="id_periksa" class="form-control" id="id_periksa" aria-describedby="emailHelp">
                                                         </div>
                                                         
                                                         <div id="entriesContainer">
