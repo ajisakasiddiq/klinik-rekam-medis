@@ -44,6 +44,7 @@ Route::resource('resepobat', 'App\Http\Controllers\ResepobatController')->middle
 Route::resource('obatpasien', 'App\Http\Controllers\ObatpasienController')->middleware('auth');
 Route::resource('supplier', 'App\Http\Controllers\SupplierController')->middleware('auth');
 Route::resource('detail', 'App\Http\Controllers\DetailresepobatController')->middleware('auth');
+Route::resource('pembayaran', 'App\Http\Controllers\PembayaranController')->middleware('auth');
 Route::resource('laporan-kunjungan', 'App\Http\Controllers\LaporanController')->middleware('auth');
 Route::get('/cetak-antrian/{id}',  [KunjunganController::class, 'cetakAntrian']);
 Route::get('/cetak-laporan/{bulan}/{tahun}',  [LaporanController::class, 'cetak']);

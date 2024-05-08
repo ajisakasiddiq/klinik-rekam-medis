@@ -15,4 +15,8 @@ class Pembayaran extends Model
         'total',
         'status',
     ];
+    public function periksa()
+    {
+        return $this->belongsTo(Pemeriksaan::class, 'id_periksa', 'id');
+    }
 }

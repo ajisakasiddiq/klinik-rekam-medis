@@ -40,7 +40,7 @@
      <hr class="sidebar-divider my-0">
 
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
+        <a class="nav-link {{ (request()->is('pembayaran')) ? 'active' : ''}}" href="{{ route('pembayaran.index') }}">
             <i class="fas fa-fw fa-cog" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Pembayaran</span></a>
         </a>
@@ -48,7 +48,7 @@
         <hr class="sidebar-divider my-0">
         
          <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="#">
+        <a class="nav-link {{ (request()->is('laporan-kunjungan')) ? 'active' : ''}}" href="{{ route('laporan-kunjungan.index') }}">
             <i class="far fa-file-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Cetak Laporan</span></a>
     </li>
