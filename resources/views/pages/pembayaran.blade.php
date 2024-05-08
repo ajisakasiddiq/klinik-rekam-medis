@@ -56,7 +56,9 @@
                                         <td><span class="mb-1 badge font-medium badge-success py-2 px-3 fs-7">Selesai</span></td>
                                         @endif
                                         <td>{{ $data->askes }}</td>
-                                        <td><a class="btn btn-primary">Detail</a></td>
+                                        <td>
+                                            <a href="{{ route('detailpembayaran.index', ['id_periksa' => $data->id_periksa]) }}" class="btn btn-primary m-1">Detail</a>
+                                        </td>
                                         @endforeach
 
                         </tbody>

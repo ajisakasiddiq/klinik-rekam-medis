@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Resep;
 use App\Models\Tindakan;
-use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PembayaranController extends Controller
+class DetailPembayaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $periksaId = $request['id_periksa'];
         $no = 1;
         $kunjungan = Resep::select('resepobat.id_periksa', 'pemeriksaan.no_periksa', 'pemeriksaan.tindakan', 'pembayaran.status as statuspembayaran', 'pasien.nama_pasien', 'pasien.no_rmd', 'pemeriksaan.status as statuspemeriksaan', 'resepobat.status as statusobat', 'pemeriksaan.tgl_kunjungan', 'pasien.askes', 'pemeriksaan.waktu_kunjungan', DB::raw('SUM(obat.harga) as total_harga_obat'))
             ->join('pemeriksaan', 'resepobat.id_periksa', '=', 'pemeriksaan.id')
@@ -19,6 +19,7 @@ class PembayaranController extends Controller
             ->join('obat', 'resepobat.id_obat', '=', 'obat.id')
             ->leftJoin('pembayaran', 'pemeriksaan.id', '=', 'pembayaran.id_periksa') // Left join dengan tabel pembayaran
             ->groupBy('pemeriksaan.no_periksa', 'resepobat.id_periksa', 'pemeriksaan.pasien_id', 'pembayaran.status', 'pasien.nama_pasien', 'pasien.no_rmd', 'pemeriksaan.status', 'resepobat.status', 'pemeriksaan.tgl_kunjungan', 'pasien.askes', 'pemeriksaan.waktu_kunjungan')
+            ->where('resepobat.id_periksa', $periksaId)
             ->get();
 
         // Loop melalui setiap item dalam $kunjungan
@@ -33,6 +34,6 @@ class PembayaranController extends Controller
             $data->total_harga_tindakan = $harga_tindakan;
         }
 
-        return view('pages.pembayaran', compact('kunjungan', 'no'));
+        return view('pages.detailpembayaran', compact('kunjungan', 'no'));
     }
 }
