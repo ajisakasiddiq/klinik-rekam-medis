@@ -44,15 +44,7 @@
                                         <td>{{ $data->tgl_kunjungan }}</td>
                                         <td>{{ $data->waktu_kunjungan }}</td>
                                         <td>
-                                          <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                     Aksi
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Detail</a></li>
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>  
-                                                </ul>
-                                            </div>
+                                            <a href="{{ route('detailrekmed.index', ['id_periksa' => $data->id]) }}" class="btn btn-primary m-1">Detail</a>
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="deletedata{{ $data->id }}" tabindex="-1"

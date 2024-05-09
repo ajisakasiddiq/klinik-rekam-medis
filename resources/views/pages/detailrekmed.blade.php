@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Pembayaran</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Rekam Medis</h1>
     </div>
     <div class="dashboard-content mb-3">
         <div class="row">
@@ -13,7 +13,7 @@
                         
                     
                     <div class="card-header">
-                        <h5 class="m-0 font-weight-bold text-primary"> Informasi Pembayaran <strong>{{ $data->no_periksa }}</strong> </h5>
+                        <h5 class="m-0 font-weight-bold text-primary"> Informasi Pemeriksaan <strong>{{ $data->no_periksa }}</strong> </h5>
                     </div>
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -67,7 +67,7 @@
                             <td>{{ $data->hargatindakan }}</td>
                             @endif
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th colspan="2" class="text-center text-primary">Informasi Total Pembayaran</th>
                         </tr>
                         <tr>
@@ -88,7 +88,7 @@
                               @else
                               <td><span class="mb-1 badge font-medium badge-success py-2 px-3 fs-7">Lunas</span></td>
                               @endif
-                        </tr>
+                        </tr> --}}
                       
                     </table> 
                    
