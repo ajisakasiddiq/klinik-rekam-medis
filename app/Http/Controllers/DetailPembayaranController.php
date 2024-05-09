@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembayaran;
 use App\Models\Resep;
 use App\Models\Tindakan;
 use Illuminate\Http\Request;
@@ -49,5 +50,12 @@ class DetailPembayaranController extends Controller
             // dd($data->list_tindakan);
         }
         return view('pages.detailpembayaran', compact('kunjungan', 'no', 'resep', 'totalobat'));
+    }
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        Pembayaran::create($data);
+
+        return redirect()->route('detailpembayaran.index');
     }
 }

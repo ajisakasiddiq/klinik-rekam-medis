@@ -33,6 +33,10 @@
                             <td>: {{ $data->no_periksa }}</td>
                         </tr>
                         <tr>
+                            <th>Tipe Pasien</th>
+                            <td>: {{ $data->askes }}</td>
+                        </tr>
+                        <tr>
                             <th>Tanggal Periksa</th>
                             <td>: {{ $data->tgl_kunjungan }}</td>
                         </tr>
@@ -75,14 +79,77 @@
                             @endif
                             
                         </tr>
-                        
+                        <tr>
+                            <th></th>
+                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Bayar
+                              </button></td>
+                        </tr>
+                      
                     </table> 
-                    @endforeach
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Pembayaran</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{{ route('detailpembayaran.store') }}">
+                @csrf
+                {{-- @foreach ($kunjungan as $data)
+                <table class="m-2">
+                    <tr>
+                        <th colspan="2">Rincingan Pembayaran</th>
+                    </tr>
+                    <tr>
+                        <th>List Obat</th>
+                    </tr>
+                    @foreach ($resep as $data)
+                        <tr>
+                            <th>{{$data->nama_obat}} x 1</th>
+                            <td>: Rp. {{ number_format($data->harga, 0, ',', '.') }}</td>
+                        </tr>
+                    @endforeach
+                        <tr>
+                            <th>Tindakan</th>
+                        </tr>
+                        <tr>
+                            <th>{{ $data->tindakan }}</th>
+                            @if($data->askes == "Dana_Sehat")
+                            <td>Gratis</td>
+                            @else
+                            <td>{{ $data->hargatindakan }}</td>
+                            @endif
+                        </tr>
+                </table>
+                @endforeach --}}
+                <div class="mb-3">
+                    <label for="total" class="form-label">Total</label>
+                    <input type="text" name="total" class="form-control" id="total" aria-describedby="emailHelp">
+                    <input type="hidden" name="status" value="sudah bayar" class="form-control" id="total" aria-describedby="emailHelp">
+                    <input type="hidden" name="id_periksa" value="{{ $data->id_periksa }}" class="form-control" id="total" aria-describedby="emailHelp">
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Selesaikan Pembayaran</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endforeach
 @endsection
 @push('addon-script')
 <!-- <script type="text/javascript">
