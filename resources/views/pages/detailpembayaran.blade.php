@@ -40,12 +40,14 @@
                         <tr>
                             <th colspan="2" class="text-center text-primary">Informasi Obat</th>
                         </tr>
+                        @endforeach
                         @foreach ($resep as $data)
                         <tr>
                             <th>{{$data->nama_obat}} x 1</th>
                             <td>Rp. {{ number_format($data->harga, 0, ',', '.') }}</td>
                         </tr>
                         @endforeach
+                        @foreach ($kunjungan as $data)
                         <tr>
                             <th>total harga</th>
                             <td>Rp. {{ number_format($totalobat, 0, ',', '.') }}</td>
@@ -54,9 +56,26 @@
                             <th colspan="2" class="text-center text-primary">Informasi Tindakan</th>
                         </tr>
                         <tr>
-                            <th>Nama Tindakan</th>
-                            <td>{{ $data->list_tindakan }}</td>
+                            <th>{{ $data->tindakan }}</th>
+                            @if($data->askes == "Dana_Sehat")
+                            <td>Gratis</td>
+                            @else
+                            <td>{{ $data->hargatindakan }}</td>
+                            @endif
                         </tr>
+                        <tr>
+                            <th colspan="2" class="text-center text-primary">Informasi Total Pembayaran</th>
+                        </tr>
+                        <tr>
+                            <th>Total pembayaran</th>
+                            @if($data->askes == "Dana_Sehat")
+                            <td>Rp. {{ number_format($totalobat, 0, ',', '.') }}</td>
+                            @else
+                            <td>Rp. {{ number_format($totalobat + $data->hargatindakan, 0, ',', '.') }} </td>
+                            @endif
+                            
+                        </tr>
+                        
                     </table> 
                     @endforeach
                 </div>

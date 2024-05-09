@@ -40,11 +40,12 @@ class DetailPembayaranController extends Controller
 
             // Hitung total harga tindakan berdasarkan nama tindakan dari baris saat ini
             $harga_tindakan = Tindakan::where('nama_tindakan', $nama_tindakan)->sum('harga');
-            $listtindakan = Tindakan::where('nama_tindakan', $nama_tindakan)->get();
+            // Memuat semua tindakan terkait
+            $harga = Tindakan::select('harga')->where('nama_tindakan', $nama_tindakan)->first();
 
+            $data->hargatindakan = $harga->harga;
             // Menyimpan total harga tindakan ke dalam item saat ini
             $data->total_harga_tindakan = $harga_tindakan;
-            $data->list_tindakan = $listtindakan;
             // dd($data->list_tindakan);
         }
         return view('pages.detailpembayaran', compact('kunjungan', 'no', 'resep', 'totalobat'));
