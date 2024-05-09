@@ -21,7 +21,18 @@ class DetailPembayaranController extends Controller
             ->groupBy('pemeriksaan.no_periksa', 'resepobat.id_periksa', 'pemeriksaan.pasien_id', 'pembayaran.status', 'pasien.nama_pasien', 'pasien.no_rmd', 'pemeriksaan.status', 'resepobat.status', 'pemeriksaan.tgl_kunjungan', 'pasien.askes', 'pemeriksaan.waktu_kunjungan')
             ->where('resepobat.id_periksa', $periksaId)
             ->get();
-
+        $resep = Resep::select('resepobat.id_periksa', 'pemeriksaan.no_periksa', 'pasien.nama_pasien', 'pemeriksaan.status as statuspemeriksaan', 'obat.nama_obat', 'obat.harga', 'resepobat.aturanpakai', 'resepobat.deskripsi', 'pemeriksaan.tgl_kunjungan', 'pemeriksaan.waktu_kunjungan')
+            ->join('pemeriksaan', 'resepobat.id_periksa', '=', 'pemeriksaan.id')
+            ->join('pasien', 'pemeriksaan.pasien_id', '=', 'pasien.id')
+            ->join('obat', 'resepobat.id_obat', '=', 'obat.id')
+            ->where('resepobat.id_periksa', $periksaId)
+            ->get();
+        $totalobat = Resep::select('resepobat.id_periksa', 'pemeriksaan.no_periksa', 'pasien.nama_pasien', 'pemeriksaan.status as statuspemeriksaan', 'obat.nama_obat', 'obat.harga', 'resepobat.aturanpakai', 'resepobat.deskripsi', 'pemeriksaan.tgl_kunjungan', 'pemeriksaan.waktu_kunjungan')
+            ->join('pemeriksaan', 'resepobat.id_periksa', '=', 'pemeriksaan.id')
+            ->join('pasien', 'pemeriksaan.pasien_id', '=', 'pasien.id')
+            ->join('obat', 'resepobat.id_obat', '=', 'obat.id')
+            ->where('resepobat.id_periksa', $periksaId)
+            ->sum('harga');
         // Loop melalui setiap item dalam $kunjungan
         foreach ($kunjungan as $data) {
             // Ambil nama tindakan dari baris saat ini
@@ -29,11 +40,13 @@ class DetailPembayaranController extends Controller
 
             // Hitung total harga tindakan berdasarkan nama tindakan dari baris saat ini
             $harga_tindakan = Tindakan::where('nama_tindakan', $nama_tindakan)->sum('harga');
+            $listtindakan = Tindakan::where('nama_tindakan', $nama_tindakan)->get();
 
             // Menyimpan total harga tindakan ke dalam item saat ini
             $data->total_harga_tindakan = $harga_tindakan;
+            $data->list_tindakan = $listtindakan;
+            // dd($data->list_tindakan);
         }
-
-        return view('pages.detailpembayaran', compact('kunjungan', 'no'));
+        return view('pages.detailpembayaran', compact('kunjungan', 'no', 'resep', 'totalobat'));
     }
 }

@@ -36,26 +36,29 @@
                             <th>Tanggal Periksa</th>
                             <td>: {{ $data->tgl_kunjungan }}</td>
                         </tr>
-                        @endforeach
+                       
                         <tr>
                             <th colspan="2" class="text-center text-primary">Informasi Obat</th>
                         </tr>
+                        @foreach ($resep as $data)
                         <tr>
-                            <th>No Rm</th>
-                            <td></td>
+                            <th>{{$data->nama_obat}} x 1</th>
+                            <td>Rp. {{ number_format($data->harga, 0, ',', '.') }}</td>
                         </tr>
+                        @endforeach
                         <tr>
-                            <th>No Rm</th>
-                            <td></td>
+                            <th>total harga</th>
+                            <td>Rp. {{ number_format($totalobat, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-center text-primary">Informasi Tindakan</th>
                         </tr>
                         <tr>
                             <th>Nama Tindakan</th>
-                            <td></td>
+                            <td>{{ $data->list_tindakan }}</td>
                         </tr>
                     </table> 
+                    @endforeach
                 </div>
             </div>
         </div>
